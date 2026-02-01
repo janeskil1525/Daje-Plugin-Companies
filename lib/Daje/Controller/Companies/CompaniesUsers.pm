@@ -1,23 +1,23 @@
-package Daje::Controller::Companies::CompaniesCompanies;
-use Mojo::Base 'Daje::Controller::Companies::Super::CompaniesCompanies', -base, -signatures;
+package Daje::Controller::Companies::CompaniesUsers;
+use Mojo::Base 'Daje::Controller::Companies::Super::CompaniesUsers', -base, -signatures;
 use v5.42;
 
 # NAME
 # ====
 #
-# Daje::Controller::Companies::CompaniesCompanies - Controller class
+# Daje::Controller::Companies::CompaniesUsers - Controller class
 #
 # SYNOPSIS
 # ========
 #
-#       use Daje::Controller::Companies::CompaniesCompanies
+#       use Daje::Controller::Companies::CompaniesUsers
 #
 #
 #
 # DESCRIPTION
 # ===========
 #
-# Daje::Controller::Companies::CompaniesCompanies is a standard controller
+# Daje::Controller::Companies::CompaniesUsers is a standard controller
 #
 # METHODS
 # =======
