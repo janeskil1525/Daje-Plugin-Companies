@@ -84,9 +84,20 @@ sub register ($self, $app, $config) {
         $app->log->error($e);
     };
 
+
+
+    $app->helper(
+        companies => sub {
+            state $login = Daje::Helper::Companies::Load->new(
+                db     => $app->pg->db,
+            )
+        }
+    );
+
     Daje::Plugin::Companies::Routes->new()->routes($app, $config);
     Daje::Plugin::Companies::Helpers->new()->helpers($app, $config);
-
+    my $r = $app->routes;
+    $r->put($app->config->{project} . '/api/try/load/company/')->to('CompaniesLoad#load_all_companies_for_user');
 
     $app->log->debug("Daje::Plugin::Companies::register ends");
 }
