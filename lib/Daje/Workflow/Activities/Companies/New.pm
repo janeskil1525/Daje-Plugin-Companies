@@ -51,6 +51,7 @@ use v5.42;
 use Daje::Database::Model::CompaniesCompanies;
 use Daje::Database::Model::CompaniesUsers;
 use Daje::Database::Model::UsersUsers;
+use Data::Dumper;
 
 sub save_new_companies_companies($self) {
 
@@ -64,12 +65,13 @@ sub save_new_companies_companies($self) {
         my $data = $self->context->{context}->{payload};
         my $user = $data->{user};
         delete $data->{user};
-        my $companies_companuies_pkey = Daje::Database::Model::CompaniesCompanies->new(
+        say Dumper($data);
+        my $companies_companies_pkey = Daje::Database::Model::CompaniesCompanies->new(
             db => $self->db
-        )->insert($data)->{data}->{companies_companies_pk};
+        )->insert($data)->{data}->{companies_companies_pkey};
 
         my $companies_user->{users_users_fkey} = $user->{users_users_pkey};
-        $companies_user->{companies_companies_fkey} = $companies_companuies_pkey;
+        $companies_user->{companies_companies_fkey} = $companies_companies_pkey;
         Daje::Database::Model::CompaniesUsers->new(
             db => $self->db
         )->insert($companies_user);
