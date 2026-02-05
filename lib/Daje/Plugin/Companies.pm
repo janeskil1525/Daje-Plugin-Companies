@@ -64,6 +64,7 @@ use v5.42;
 use Daje::Plugin::Companies::Routes;
 use Daje::Plugin::Companies::Helpers;
 use  Daje::Database::Migrator;
+use Daje::Helper::Companies::Load;
 
 our $VERSION = '0.01';
 
@@ -84,8 +85,6 @@ sub register ($self, $app, $config) {
         $app->log->error($e);
     };
 
-
-
     $app->helper(
         companies => sub {
             state $login = Daje::Helper::Companies::Load->new(
@@ -98,6 +97,7 @@ sub register ($self, $app, $config) {
     Daje::Plugin::Companies::Helpers->new()->helpers($app, $config);
     my $r = $app->routes;
     $r->put($app->config->{project} . '/api/try/load/company/')->to('CompaniesLoad#load_all_companies_for_user');
+    $r->put($app->config->{project} . '/api/new/company/')->to('CompaniesSignup#signup');
 
     $app->log->debug("Daje::Plugin::Companies::register ends");
 }

@@ -40,6 +40,8 @@ use v5.42;
 # janeskil1525 E<lt>janeskil1525@gmail.comE<gt>
 #
 
+has 'db';
+
 async sub load_companies_from_user_mail_p($self, $mail){
     my $stmt = qq {
         SELECT companies_companies.* FROM companies_companies, companies_users
