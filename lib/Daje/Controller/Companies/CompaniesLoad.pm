@@ -58,7 +58,7 @@ sub load_all_companies_for_user($self) {
     my $data = from_json($self->req->body);
 
     $self->companies->load_companies_from_user_mail_p($data->{mail})->then(sub($result) {
-        $self->render(json => { result => 'success', data => $result });
+        $self->render(json => { result => 'success', data => { companies => $result } });
     })->catch(sub($err) {
         $self->app->log->error('Daje::Controller::Companies::CompaniesLoad ' . $err);
         $self->render(json => {result => 'failed', data => $err});
