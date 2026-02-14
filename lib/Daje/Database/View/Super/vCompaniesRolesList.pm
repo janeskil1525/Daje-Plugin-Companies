@@ -1,25 +1,25 @@
-package Daje::Database::View::Super::vCompaniesUsersList;
+package Daje::Database::View::Super::vCompaniesRolesList;
 use Mojo::Base 'Daje::Database::Model::Super::Common::Base', -base, -signatures, -async_await;
 use v5.42;
 
 # NAME
 # ====
 #
-# Daje::Database::View::Super::vCompaniesUsersList - Daje db view
+# Daje::Database::View::Super::vCompaniesRolesList - Daje db view
 #
 # SYNOPSIS
 # ========
 #
 #
-#       use Daje::Database::View::Super::vCompaniesUsersList;
+#       use Daje::Database::View::Super::vCompaniesRolesList;
 #
-#       my $table = Daje::Database::View::Super::vCompaniesUsersList->new(db => $db);
+#       my $table = Daje::Database::View::Super::vCompaniesRolesList->new(db => $db);
 #
-#       my $result = $table->load_companies_users_pkey($self, $companies_users_pkey);
+#       my $result = $table->load_companies_roles_pkey($self, $companies_roles_pkey);
 #
 #       my $result = $table->load_companies_companies_fkey($self, $companies_companies_fkey);
 #
-#       my $result = $table->load_companies_users_fkey($self, $companies_users_fkey);
+#       my $result = $table->load_companies_role_fkey($self, $companies_role_fkey);
 ##
 #       my $result = $table->insert($self, $data);
 #
@@ -29,7 +29,7 @@ use v5.42;
 # DESCRIPTION
 # ===========
 #
-# Daje::Database::View::Super::CompaniesUsersList is a Model super class
+# Daje::Database::View::Super::CompaniesRolesList is a Model super class
 #
 # METHODS
 # =======
@@ -57,11 +57,11 @@ use v5.42;
 
 our $VERSION = '0.01';
 
-has 'fields' => '"companies_users_pkey", "editnum", "insby", "insdatetime", "modby", "moddatetime",
-"companies_companies_fkey",
-"users_users_fkey"';
-has 'primary_key_name' => "companies_users_pkey";
-has 'table_name' => "v_companies_users_list";
+has 'fields' => '"companies_roles_pkey", "editnum", "insby", "insdatetime", "modby", "moddatetime",
+"companies_companies_fkey","description",authorities_role_name,
+"authorities_role_fkey"';
+has 'primary_key_name' => "companies_roles_pkey";
+has 'table_name' => "v_companies_roles_list";
 
 async sub load_all_companies_companies_list_p($self) {
     return $self->load_all_companies_companies_list();
@@ -82,30 +82,30 @@ sub load_companies_companies_list($self, $key_value) {
         $self->table_name, $self->fields(), $key_value
     );
 }
-async sub load_all_users_users_list_p($self) {
-    return $self->load_all_users_users_list();
+async sub load_all_authorities_role_list_p($self) {
+    return $self->load_all_authorities_role_list();
 }
 
-sub load_all_users_users_list($self) {
+sub load_all_authorities_role_list($self) {
     return $self->load_a_full_list(
         $self->table_name, $self->fields()
     );
 }
 
-async sub load_users_users_list_p($self, $key_value) {
-    return $self->load_companies_users_list($key_value);
+async sub load_authorities_role_list_p($self, $key_value) {
+    return $self->load_companies_role_list($key_value);
 }
 
-sub load_users_users_list($self, $key_value) {
+sub load_authorities_role_list($self, $key_value) {
     return $self->load_a_list(
         $self->table_name, $self->fields(), $key_value
     );
 }
-async sub load_all_companies_users_p($self) {
-    return $self->load_all_companies_users();
+async sub load_all_companies_roles_p($self) {
+    return $self->load_all_companies_roles();
 }
 
-sub load_all_companies_users($self) {
+sub load_all_companies_roles($self) {
     return $self->load_a_full_list(
         $self->table_name, $self->fields()
     );

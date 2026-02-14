@@ -1,21 +1,21 @@
-package Daje::Controller::Companies::Super::CompaniesUsersList;
+package Daje::Controller::Companies::Super::CompaniesRolesList;
 use Mojo::Base 'Mojolicious::Controller', -base, -signatures;
 use v5.42;
 
 # NAME
 # ====
 #
-# Daje::Controller::Companies::Super::CompaniesUsersList - Model class
+# Daje::Controller::Companies::Super::CompaniesRolesList - Model class
 #
 # SYNOPSIS
 # ========
 #
-#       use Daje::Controller::Companies::Super::vCompaniesUsers##
+#       use Daje::Controller::Companies::Super::vCompaniesRoles##
 #
 # DESCRIPTION
 # ===========
 #
-# Daje::Controller::Companies::Super::CompaniesUsers is a standard controller
+# Daje::Controller::Companies::Super::CompaniesRoles is a standard controller
 #
 # METHODS
 # =======
@@ -40,8 +40,8 @@ use v5.42;
 
 our $VERSION = '0.01';
 
-sub load_all_companies_users($self) {
-    $self->app->log->debug('Daje::Controller::Super::CompaniesUsersList::load_all_companies_users ');
+sub load_all_companies_roles($self) {
+    $self->app->log->debug('Daje::Controller::Super::CompaniesRolesList::load_all_companies_roles ');
     $self->render_later;
     my ($companies_pkey, $users_pkey) = $self->jwt->companies_users_pkey(
          $self->req->headers->header('X-Token-Check')
@@ -49,15 +49,15 @@ sub load_all_companies_users($self) {
 
     $self->app->log->debug($self->req->headers->header('X-Token-Check'));
     # my $setting = $self->param('setting');
-    $self->v_companies_users_list->load_all_companies_users_p()->then(sub($result) {
+    $self->v_companies_roles_list->load_all_companies_roles_p()->then(sub($result) {
         $self->render(json => $result->{data});
     })->catch(sub($err) {
-        $self->app->log->error('Daje::Controller::Super::CompaniesUsersList::load_all_companies_users ' . $err);
+        $self->app->log->error('Daje::Controller::Super::CompaniesRolesList::load_all_companies_roles ' . $err);
         $self->render
     });
 }
 sub load_list_companies_companies_fkey($self) {
-    $self->app->log->debug('Daje::Controller::Super::CompaniesUsersList::load_listcompanies_companies_fkey ');
+    $self->app->log->debug('Daje::Controller::Super::CompaniesRolesList::load_listcompanies_companies_fkey ');
     $self->render_later;
     my ($companies_pkey, $users_pkey) = $self->jwt->companies_users_pkey(
          $self->req->headers->header('X-Token-Check')
@@ -69,23 +69,23 @@ sub load_list_companies_companies_fkey($self) {
     $self->v_companies__list->companies_companies_fkey_p($fkey)->then(sub($result) {
         $self->render(json => $result->{data});
     })->catch(sub($err) {
-        $self->app->log->error('Daje::Controller::Super::CompaniesUsers::load_companies_companies_fkey ' . $err);
+        $self->app->log->error('Daje::Controller::Super::CompaniesRoles::load_companies_companies_fkey ' . $err);
         $self->render
     });
-}sub load_list_users_users_fkey($self) {
-    $self->app->log->debug('Daje::Controller::Super::CompaniesUsersList::load_listusers_users_fkey ');
+}sub load_list_authorities_role_fkey($self) {
+    $self->app->log->debug('Daje::Controller::Super::CompaniesRolesList::load_listauthorities_role_fkey ');
     $self->render_later;
     my ($companies_pkey, $users_pkey) = $self->jwt->companies_users_pkey(
          $self->req->headers->header('X-Token-Check')
     );
-    my $fkey = $self->param('users_users_fkey');
+    my $fkey = $self->param('authorities_role_fkey');
 
     $self->app->log->debug($self->req->headers->header('X-Token-Check'));
     # my $setting = $self->param('setting');
-    $self->v_users__list->users_users_fkey_p($fkey)->then(sub($result) {
+    $self->v_authorities__list->authorities_role_fkey_p($fkey)->then(sub($result) {
         $self->render(json => $result->{data});
     })->catch(sub($err) {
-        $self->app->log->error('Daje::Controller::Super::CompaniesUsers::load_users_users_fkey ' . $err);
+        $self->app->log->error('Daje::Controller::Super::CompaniesRoles::load_authorities_role_fkey ' . $err);
         $self->render
     });
 }

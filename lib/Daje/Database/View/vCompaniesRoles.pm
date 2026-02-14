@@ -1,27 +1,27 @@
-package Daje::Database::View::vCompaniesCompanies;
-use Mojo::Base 'Daje::Database::View::Super::vCompaniesCompanies', -base, -async_await, -signatures;
+package Daje::Database::View::vCompaniesRoles;
+use Mojo::Base 'Daje::Database::View::Super::vCompaniesRoles', -base, -async_await, -signatures;
 use v5.42;
 
 # NAME
 # ====
 #
-# Daje::Database::View::vCompaniesCompanies - View class
+# Daje::Database::View::vCompaniesRoles - View class
 #
 # SYNOPSIS
 # ========
 #
-#       use Daje::Database::View::vCompaniesCompanies;
+#       use Daje::Database::View::vCompaniesRoles;
 #
-#       my $class = Daje::Database::View::vCompaniesCompanies->new(db => $db);
+#       my $class = Daje::Database::View::vCompaniesRoles->new(db => $db);
 #
 # DESCRIPTION
 # ===========
 #
-# Daje::Database::View::vCompaniesCompanies is the View
+# Daje::Database::View::vCompaniesRoles is the View
 #
 # class that's only generated once. It inherits all
 #
-# methods from Daje::Database::View::Super::vCompaniesCompanies#
+# methods from Daje::Database::View::Super::vCompaniesRoles#
 # This class is meant for non standard methods.
 #
 # METHODS

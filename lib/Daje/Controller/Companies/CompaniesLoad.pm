@@ -49,9 +49,9 @@ our $VERSION = '0.01';
 
 sub load_all_companies_for_user($self) {
 
-    $self->app->log->debug('Daje::Controller::Companies::CompaniesLoad ');
+    $self->app->log->debug('Daje::Controller::Companies::CompaniesLoad::load_all_companies_for_user start ');
     $self->render_later;
-    say Dumper($self->req->headers->header('X-Token-Check'));
+
     my ($companies_pkey, $users_pkey) = $self->jwt->companies_users_pkey(
         $self->req->headers->header('X-Token-Check')
     );
@@ -63,6 +63,7 @@ sub load_all_companies_for_user($self) {
         $self->app->log->error('Daje::Controller::Companies::CompaniesLoad ' . $err);
         $self->render(json => {result => 'failed', data => $err});
     });
+    $self->app->log->debug('Daje::Controller::Companies::CompaniesLoad::load_all_companies_for_user end ');
 }
 
 

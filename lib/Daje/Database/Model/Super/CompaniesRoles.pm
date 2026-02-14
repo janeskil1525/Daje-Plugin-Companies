@@ -1,25 +1,25 @@
-package Daje::Database::Model::Super::CompaniesUsers;
+package Daje::Database::Model::Super::CompaniesRoles;
 use Mojo::Base 'Daje::Database::Model::Super::Common::Base', -base, -signatures, -async_await;
 use v5.42;
 
 # NAME
 # ====
 #
-# Daje::Database::Model::Super::CompaniesUsers - Daje db model
+# Daje::Database::Model::Super::CompaniesRoles - Daje db model
 #
 # SYNOPSIS
 # ========
 #
 #
-#       use Daje::Database::Model::Super::CompaniesUsers;
+#       use Daje::Database::Model::Super::CompaniesRoles;
 #
-#       my $table = Daje::Database::Model::Super::CompaniesUsers->new(db => $db);
+#       my $table = Daje::Database::Model::Super::CompaniesRoles->new(db => $db);
 #
-#       my $result = $table->load_companies_users_pkey($self, $companies_users_pkey);
+#       my $result = $table->load_companies_roles_pkey($self, $companies_roles_pkey);
 #
 #       my $result = $table->load_companies_companies_fkey($self, $companies_companies_fkey);
 #
-#       my $result = $table->load_companies_users_fkey($self, $companies_users_fkey);
+#       my $result = $table->load_companies_role_fkey($self, $companies_role_fkey);
 ##
 #       my $result = $table->insert($self, $data);
 #
@@ -29,7 +29,7 @@ use v5.42;
 # DESCRIPTION
 # ===========
 #
-# Daje::Database::Model::Super::CompaniesUsers is a Model super class
+# Daje::Database::Model::Super::CompaniesRoles is a Model super class
 #
 # METHODS
 # =======
@@ -57,12 +57,12 @@ use v5.42;
 
 our $VERSION = '0.01';
 
-has 'fields' => '"companies_users_pkey", "editnum", "insby", "insdatetime", "modby", "moddatetime",
-"companies_companies_fkey",
-"users_users_fkey"';
-has 'primary_key_name' => "companies_users_pkey";
-has 'table_name' => "companies_users";
-has 'mandatory' => 'companies_companies_fkey,users_users_fkey,';
+has 'fields' => '"companies_roles_pkey", "editnum", "insby", "insdatetime", "modby", "moddatetime",
+"companies_companies_fkey","description",
+"authorities_role_fkey"';
+has 'primary_key_name' => "companies_roles_pkey";
+has 'table_name' => "companies_roles";
+has 'mandatory' => 'companies_companies_fkey,authorities_role_fkey,';
 has 'workflow' => '';
 
 async sub load_companies_companies_fkey_p($self, $companies_companies_fkey) {
@@ -74,22 +74,22 @@ sub load_companies_companies_fkey($self, $companies_companies_fkey) {
         $self->table_name, $self->fields(), "companies_companies_fkey", $companies_companies_fkey
     );
 }
-async sub load_users_users_fkey_p($self, $users_users_fkey) {
-    return $self->load_users_users_fkey($users_users_fkey);
+async sub load_authorities_role_fkey_p($self, $authorities_role_fkey) {
+    return $self->load_authorities_role_fkey($authorities_role_fkey);
 }
 
-sub load_users_users_fkey($self, $users_users_fkey) {
+sub load_authorities_role_fkey($self, $authorities_role_fkey) {
     return $self->load_fkey(
-        $self->table_name, $self->fields(), "users_users_fkey", $users_users_fkey
+        $self->table_name, $self->fields(), "authorities_role_fkey", $authorities_role_fkey
     );
 }
-async sub load_companies_users_pkey_p($self, $companies_users_pkey) {
-    return $self->load_companies_users_pkey($companies_users_pkey);
+async sub load_companies_roles_pkey_p($self, $companies_roles_pkey) {
+    return $self->load_companies_roles_pkey($companies_roles_pkey);
 }
 
-sub load_companies_users_pkey($self, $companies_users_pkey) {
+sub load_companies_roles_pkey($self, $companies_roles_pkey) {
     return $self->load_pk(
-        $self->table_name, $self->fields(), $self->primary_key_name(), $companies_users_pkey
+        $self->table_name, $self->fields(), $self->primary_key_name(), $companies_roles_pkey
     );
 }
 
