@@ -64,9 +64,8 @@ sub save_new_companies_companies($self) {
     try {
         my $data = $self->context->{context}->{payload};
         my $user = $data->{user};
-
+        $data->{companies_workflow_fkey} = $self->context->{context}->{workflow}->{workflow_fkey};
         delete %$data{user};
-        say Dumper($data);
         my $companies_companies_pkey = Daje::Database::Model::CompaniesCompanies->new(
             db => $self->db
         )->insert($data)->{data}->{companies_companies_pkey};

@@ -66,6 +66,7 @@ use Daje::Plugin::Companies::Helpers;
 use  Daje::Database::Migrator;
 use Daje::Helper::Companies::Load;
 use Daje::Plugin::Companies::Authorities;
+use Daje::Plugin::Companies::Languages;
 
 our $VERSION = '0.01';
 
@@ -96,8 +97,12 @@ sub register ($self, $app, $config) {
 
     Daje::Plugin::Companies::Routes->new()->routes($app, $config);
     Daje::Plugin::Companies::Helpers->new()->helpers($app, $config);
-    Daje::Plugin::Companies::Authorities->new(db => $app->pg->db)->authorize();
-
+    Daje::Plugin::Companies::Authorities->new(
+        db => $app->pg->db
+    )->authorize();
+    Daje::Plugin::Companies::Languages->new(
+        db => $app->pg->db
+    )->language();
     my $r = $app->routes;
     $r->put($app->config->{project} . '/api/try/load/company/')->to('CompaniesLoad#load_all_companies_for_user');
     $r->put($app->config->{project} . '/api/new/company/')->to('CompaniesSignup#signup');

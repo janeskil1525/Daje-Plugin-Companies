@@ -53,7 +53,7 @@ async sub load_companies_from_user_mail_p($self, $mail){
         $stmt,($mail)
     );
 
-    my $result;
+    my $result = [];
     $result = $hash->hashes if $hash && $hash->rows > 0;
 
     return $result;
