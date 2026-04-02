@@ -68,7 +68,7 @@ use Daje::Helper::Companies::Load;
 use Daje::Plugin::Companies::Authorities;
 use Daje::Plugin::Companies::Languages;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub register ($self, $app, $config) {
     $app->log->debug("Daje::Plugin::Companies::register start");

@@ -63,12 +63,23 @@ sub save_new_companies_companies($self) {
 
     try {
         my $data = $self->context->{context}->{payload};
-        my $user = $data->{user};
-        $data->{companies_workflow_fkey} = $self->context->{context}->{workflow}->{workflow_fkey};
+        my $user;
+        if(exists $data->{user} && exists $data->{user}->{users_users_pkey}) {
+            $user = $data->{user};
+        } else {
+            $user->{users_users_pkey} = $self->context->{context}->{users_fkey};
+        }
+
         delete %$data{user};
+        $data->{companies_workflow_fkey} = $self->context->{context}->{workflow}->{workflow_fkey};
+
         my $companies_companies_pkey = Daje::Database::Model::CompaniesCompanies->new(
             db => $self->db
-        )->insert($data)->{data}->{companies_companies_pkey};
+        )->insert(
+            $data
+        )->{data}->{companies_companies_pkey};
+        $self->context->{context}->{payload}->{companies_companies_pkey} = $companies_companies_pkey;
+        $self->context->{context}->{companies_fkey} = $companies_companies_pkey;
 
         my $companies_user->{users_users_fkey} = $user->{users_users_pkey};
         $companies_user->{companies_companies_fkey} = $companies_companies_pkey;
