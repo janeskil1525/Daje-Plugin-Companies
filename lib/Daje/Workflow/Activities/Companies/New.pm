@@ -51,6 +51,7 @@ use v5.42;
 use Daje::Database::Model::CompaniesCompanies;
 use Daje::Database::Model::CompaniesUsers;
 use Daje::Database::Model::UsersUsers;
+use Daje::Database::View::vLanguagesLan;
 use Data::Dumper;
 
 sub save_new_companies_companies($self) {
@@ -72,6 +73,11 @@ sub save_new_companies_companies($self) {
 
         delete %$data{user};
         $data->{companies_workflow_fkey} = $self->context->{context}->{workflow}->{workflow_fkey};
+        $data->{languages_lan_fkey} = Daje::Database::View::vLanguagesLan->new(
+            db => $self->db
+        )->load_language_pkey_from_lan(
+            'ENG'
+        )->{data}->{languages_lan_pkey};
 
         my $companies_companies_pkey = Daje::Database::Model::CompaniesCompanies->new(
             db => $self->db
