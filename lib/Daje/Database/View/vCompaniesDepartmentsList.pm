@@ -1,27 +1,27 @@
-package Daje::Database::View::vCompaniesCompaniesList;
-use Mojo::Base 'Daje::Database::View::Super::vCompaniesCompaniesList', -base, -async_await, -signatures;
+package Daje::Database::View::vCompaniesDepartmentsList;
+use Mojo::Base 'Daje::Database::View::Super::vCompaniesDepartmentsList', -base, -async_await, -signatures;
 use v5.42;
 
 # NAME
 # ====
 #
-# Daje::Database::View::vCompaniesCompaniesList - View class
+# Daje::Database::View::vCompaniesDepartmentsList - View class
 #
 # SYNOPSIS
 # ========
 #
-#       use Daje::Database::View::vCompaniesCompaniesList;
+#       use Daje::Database::View::vCompaniesDepartmentsList;
 #
-#       my $class = Daje::Database::View::vCompaniesCompaniesList->new(db => $db);
+#       my $class = Daje::Database::View::vCompaniesDepartmentsList->new(db => $db);
 #
 # DESCRIPTION
 # ===========
 #
-# Daje::Database::View::vCompaniesCompaniesList is the List View
+# Daje::Database::View::vCompaniesDepartmentsList is the List View
 #
 # class that's only generated once. It inherits all
 #
-# methods from Daje::Database::View::Super::vCompaniesCompaniesList
+# methods from Daje::Database::View::Super::vCompaniesDepartmentsList
 #
 # This class is meant for non standard methods.
 #
