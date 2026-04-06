@@ -1,28 +1,27 @@
-package Daje::Database::View::vCompaniesCompaniesList;
-use Mojo::Base 'Daje::Database::View::Super::vCompaniesCompaniesList', -base, -async_await, -signatures;
+package Daje::Database::View::vCompaniesDefaults;
+use Mojo::Base 'Daje::Database::View::Super::vCompaniesDefaults', -base, -async_await, -signatures;
 use v5.42;
 
 # NAME
 # ====
 #
-# Daje::Database::View::vCompaniesCompaniesList - View class
+# Daje::Database::View::vCompaniesDefaults - View class
 #
 # SYNOPSIS
 # ========
 #
-#       use Daje::Database::View::vCompaniesCompaniesList;
+#       use Daje::Database::View::vCompaniesDefaults;
 #
-#       my $class = Daje::Database::View::vCompaniesCompaniesList->new(db => $db);
+#       my $class = Daje::Database::View::vCompaniesDefaults->new(db => $db);
 #
 # DESCRIPTION
 # ===========
 #
-# Daje::Database::View::vCompaniesCompaniesList is the List View
+# Daje::Database::View::vCompaniesDefaults is the View
 #
 # class that's only generated once. It inherits all
 #
-# methods from Daje::Database::View::Super::vCompaniesCompaniesList
-#
+# methods from Daje::Database::View::Super::vCompaniesDefaults#
 # This class is meant for non standard methods.
 #
 # METHODS
@@ -49,6 +48,13 @@ use v5.42;
 
 
 our $VERSION = '0.01';
+
+
+sub load_companies_defaults_list($self, $key_value) {
+    return $self->load_a_list(
+        $self->table_name, $self->fields(), $key_value
+    );
+}
 
 1;
 
