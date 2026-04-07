@@ -82,9 +82,11 @@ async sub load_all_companies_positions_p($self, $companies_pkey, $users_pkey) {
     return $self->load_all_companies_positions($companies_pkey, $users_pkey);
 }
 
-sub load_all_companies_positions($self, $companies_pkey, $users_pkey) {    return $self->load_a_list(
+sub load_all_companies_positions($self, $companies_pkey, $users_pkey) {
+    return $self->load_a_list(
         $self->table_name, $self->fields(), { companies_companies_fkey => $companies_pkey }
-    );}
+    );
+}
 1;
 
 

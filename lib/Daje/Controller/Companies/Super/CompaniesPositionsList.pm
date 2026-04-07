@@ -43,12 +43,13 @@ our $VERSION = '0.01';
 sub load_all_companies_positions($self) {
     $self->app->log->debug('Daje::Controller::Super::CompaniesPositionsList::load_all_companies_positions ');
     $self->render_later;
+
     my ($companies_pkey, $users_pkey) = $self->jwt->companies_users_pkey(
          $self->req->headers->header('X-Token-Check')
     );
 
     $self->app->log->debug($self->req->headers->header('X-Token-Check'));
-
+    say "Companies_pkey = " . $companies_pkey . " users_pkey " . $users_pkey;
     $self->v_companies_positions_list->load_all_companies_positions_p($companies_pkey, $users_pkey)->then(sub($result) {
         $self->render(json => $result->{data});
     })->catch(sub($err) {

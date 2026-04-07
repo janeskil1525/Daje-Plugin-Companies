@@ -5,7 +5,7 @@ use v5.42;
 # NAME
 # ====
 #
-# Daje::Workflow::Activities::Companies::Activity - A workflow activity
+# Daje::Workflow::Activities::Companies::Department - A workflow activity
 #
 # SYNOPSIS
 # ========
@@ -14,12 +14,12 @@ use v5.42;
 # DESCRIPTION
 # ===========
 #
-# Daje::Workflow::Activities::Companies::Activity is a Daje workflow activity.
+# Daje::Workflow::Activities::Companies::Department is a Daje workflow activity.
 #
 # METHODS
 # =======
 #
-# Daje::Workflow::Activities::Companies::Activity inherits all methods from
+# Daje::Workflow::Activities::Companies::Department inherits all methods from
 # Daje::Workflow::Activities::Tools::Generate::Base and implements the following new ones.
 #
 # activity
@@ -50,12 +50,44 @@ use v5.42;
 
 
 use Daje::Database::View::vCompaniesDefaults;
+use Daje::Database::Model::CompaniesDepartments;
+use Data::Dumper;
 
 sub save_default_departments($self) {
 
-    my $departments = Daje::Database::View::vCompaniesDefaults->new(
-        db => $self->db
-    )->load_companies_defaults_list({ category => 'department' })
+    $self->model->insert_history(
+        "Default departments",
+        "Daje::Workflow::Activities::Companies::Department::save_default_departments",
+        1
+    );
+
+    my $companies_fkey = $self->context->{context}->{companies_fkey};
+    try {
+        my $departments = Daje::Database::View::vCompaniesDefaults->new(
+            db => $self->db
+        )->load_companies_defaults_list(
+            {
+                category => 'department'
+            }
+        )->{data};
+
+        my $length = scalar @{$departments};
+        for (my $i = 0; $i < $length; $i++) {
+            my $data = {
+                name                     => @{$departments}[$i]->{value},
+                code                     => @{$departments}[$i]->{key},
+                companies_companies_fkey => $companies_fkey,
+            };
+
+            Daje::Database::Model::CompaniesDepartments->new(
+                db => $self->db
+            )->insert(
+                $data
+            );
+        };
+    } catch ($e) {
+        $self->error->add_error($e)
+    }
 
 }
 1;
