@@ -51,7 +51,14 @@ sub signup($self) {
         $self->workflow_engine->context($data);
         $self->workflow_engine->process('save_new_companies_companies');
         if($self->workflow_engine->error->has_error() == 0) {
-            $self->render(json => {result => 1, data => 'OK'});
+            my $context = decode_json $self->workflow_engine->context()->{context};
+            $self->render(
+                json => {
+                    result => 1,
+                    data => 'OK',
+                    context => $context
+                }
+            );
         } else {
             $self->app->log->error('Daje::Controller::Companies::CompaniesSignup::signup ' . $self->workflow_engine->error->error());
             $self->render(json =>
